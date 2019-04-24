@@ -65,6 +65,43 @@ twq('track','PageView');
 <!--  Bing universal website tag code -->
 <script>(function(w,d,t,r,u){var f,n,i;w[u]=w[u]||[],f=function(){var o={ti:"18003493"};o.q=w[u],w[u]=new UET(o),w[u].push("pageLoad")},n=d.createElement(t),n.src=r,n.async=1,n.onload=n.onreadystatechange=function(){var s=this.readyState;s&&s!=="loaded"&&s!=="complete"||(f(),n.onload=n.onreadystatechange=null)},i=d.getElementsByTagName(t)[0],i.parentNode.insertBefore(n,i)})(window,document,"script","//bat.bing.com/bat.js","uetq");</script>
 <!--===============================================================================================-->
+<!-- For Form -->
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+            $("#submit").click(function(e) {
+                e.preventDefault();
+
+                var name = $("#name").val(),
+                    email = $("#email").val(),
+                    phone = $("#phone").val(),
+                    wsource = $("#wsource").val(),
+                    desc = $("#desc").val();
+
+                $.ajax({
+                    type: "POST",
+                    url: 'https://6632bs8ve0.execute-api.us-east-1.amazonaws.com/TestAPI/contact-us',
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        'name': name,
+                        'phone':phone,
+                        'email': email,
+                        'desc': desc,
+                        'wsource': "www.johnprefer.com - ContactForm"
+                    }),
+                    success: function(res){
+                        $('#form-response').text('Thank You Message Sent.');
+                    },
+                    error: function(){
+                        $('#form-response').text('Error.');
+                    }
+                });
+
+            })
+
+        });
+    </script> 
+  <!--===============================================================================================-->  
 </head>
 <body>
 	
@@ -90,9 +127,10 @@ twq('track','PageView');
 
 					<form class="contact100-form validate-form m-t-10 m-b-10">
 						<div class="wrap-input100 validate-input m-lr-auto-lg" data-validate = "Email is required: ex@abc.xyz">
-							<input class="s2-txt1 placeholder0 input100 trans-04" type="text" name="email" placeholder="Email Address">
-
-							<button class="flex-c-m ab-t-r size2 hov1">
+						<input type="text" id="email" placeholder="Enter email here   *" class="form-control" /><span class="required"><class="input-field"><br/><br/>
+							
+							<button id="submit" class="btn btn-lg">Submit</button>
+							
 								<i class="zmdi zmdi-long-arrow-right fs-30 cl1 trans-04"></i>
 							</button>
 						</div>		
